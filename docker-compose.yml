@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+  manager:
+    image: nidin001/manager:latest
+    container_name: manager
+    domainname: worker
+    hostname: worker
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./manager/src/main/resources:/app/config
+    networks:
+      docker-inner-network:
+        ipv4_address: 10.6.0.2
+
+  worker:
+    image: nidin001/worker:latest
+    container_name: worker
+    domainname: worker
+    hostname: worker
+    ports:
+      - "8081:8081"
+    volumes:
+      - ./worker/src/main/resources:/app/config
+    networks:
+      docker-inner-network:
+        ipv4_address: 10.6.0.3
+
+networks:
+  docker-inner-network:
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.6.0.0/24
+          gateway: 10.6.0.1

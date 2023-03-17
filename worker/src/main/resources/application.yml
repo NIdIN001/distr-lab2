@@ -1,0 +1,9 @@
+server:
+  port: 8081
+
+manager:
+  host: http://10.6.0.2:8080
+
+#logging:
+#  level:
+#    root: debug
